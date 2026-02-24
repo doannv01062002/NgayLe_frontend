@@ -109,7 +109,7 @@ const OrderStepper = () => {
   );
 };
 
-export default function OrderSuccessPage() {
+function OrderSuccessContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const orderIdStr = searchParams.get("orderIds");
@@ -120,8 +120,6 @@ export default function OrderSuccessPage() {
 
   useEffect(() => {
     if (!orderIdStr) {
-      // If no ID, maybe user navigated manually? Show generic success or redirect home
-      // For demo, we just stop loading
       setLoading(false);
       return;
     }
@@ -145,27 +143,6 @@ export default function OrderSuccessPage() {
     fetchOrders();
   }, [orderIdStr]);
 
-  // Use first order for address details display (assuming all go to same address)
-  const displayOrder = orders[0];
-
-  // Parse address JSON if available
-  let parsedAddress = null;
-  try {
-    if (displayOrder?.description) {
-      // Currently description field might NOT hold address json as I didn't verify backend mapping 100% yet strictly for DTO
-      // Actually OrderDTO doesn't have shippingAddressJson field exposed yet, let's use a mock or generic approach
-      // Wait, I updated OrderDTO? Let's check.
-      // I updated OrderDTO.java to include standard fields: orderId, shopId, totalAmount...
-      // I did NOT expose shippingAddressJson in OrderDTO.java in my previous edit (Step 345).
-      // So I can't read address from OrderDTO directly yet unless I update DTO.
-      // For now, I will display "Thông tin đơn hàng" generic or try to load user default address if I'm lazy,
-      // BUT showing the entered address is better.
-      // *Self-Correction*: I can't easily get address details without extra backend work.
-      // Visual fix: Show a static placeholder or "See Details in Profile".
-      // OR fetch default address again.
-    }
-  } catch (e) {}
-
   // Fallback: Fetch default address just to show something nice in the UI
   useEffect(() => {
     const loadAddr = async () => {
@@ -187,7 +164,6 @@ export default function OrderSuccessPage() {
   }
 
   if (!orderIdStr && orders.length === 0) {
-    // Fallback view if accessed directly
     return (
       <div className="min-h-screen bg-[#fafaf9] pt-10 px-4">
         <div className="max-w-3xl mx-auto">
@@ -219,7 +195,6 @@ export default function OrderSuccessPage() {
             <OrderStepper />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Left: Product List */}
               <div className="md:col-span-2 bg-white rounded-lg shadow-sm border border-gray-100 p-6">
                 <h3 className="font-bold text-gray-800 text-base mb-4 flex items-center gap-2">
                   <span className="material-symbols-outlined text-[#d0011b]">
@@ -228,7 +203,6 @@ export default function OrderSuccessPage() {
                   Sản phẩm đã mua
                 </h3>
 
-                {/* Order Items Mock - Since OrderDTO doesn't list items deeply yet, we'll suggest checking email */}
                 <div className="bg-blue-50 text-blue-800 px-4 py-3 rounded mb-4 text-xs">
                   Danh sách chi tiết sản phẩm đã được gửi đến email xác nhận của
                   bạn.
@@ -253,9 +227,7 @@ export default function OrderSuccessPage() {
                 </div>
               </div>
 
-              {/* Right: Info */}
               <div className="space-y-4">
-                {/* Address */}
                 <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-4">
                   <h4 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
                     <span className="material-symbols-outlined text-[#d0011b] text-base">
@@ -268,7 +240,6 @@ export default function OrderSuccessPage() {
                   </p>
                 </div>
 
-                {/* Shipping */}
                 <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-4">
                   <h4 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
                     <span className="material-symbols-outlined text-[#d0011b] text-base">
@@ -285,7 +256,6 @@ export default function OrderSuccessPage() {
                   </div>
                 </div>
 
-                {/* Payment */}
                 <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-4">
                   <h4 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
                     <span className="material-symbols-outlined text-[#d0011b] text-base">
@@ -303,6 +273,7 @@ export default function OrderSuccessPage() {
                       <img
                         src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png"
                         className="w-4 h-4"
+                        alt="Momo"
                       />
                     )}
                     <span className="font-medium">
@@ -338,6 +309,20 @@ export default function OrderSuccessPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+import { Suspense } from "react";
+
+export default function OrderSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#fafaf9] flex items-center justify-center">
+        <div className="w-10 h-10 border-4 border-[#d0011b] border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    }>
+      <OrderSuccessContent />
+    </Suspense>
   );
 }
 
