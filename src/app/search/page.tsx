@@ -71,7 +71,9 @@ export default function SearchPage() {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-6">
-          <FilterSidebar />
+          <Suspense fallback={<div className="w-64 h-96 bg-gray-100 animate-pulse rounded-xl hidden lg:block"></div>}>
+            <FilterSidebar />
+          </Suspense>
           <div className="flex-1 min-w-0">
             <Suspense fallback={<div>Đang tải kết quả...</div>}>
               <SearchResults />
