@@ -21,11 +21,17 @@ const getBaseURL = () => {
 
 const api = axios.create({
   baseURL: getBaseURL(),
+  timeout: 30000, // 30 seconds timeout
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true,
 });
+
+// Debug log for API target in non-production or for helping user
+if (process.env.NODE_ENV !== 'production' || typeof window !== 'undefined') {
+  console.log("API Base URL:", getBaseURL());
+}
 
 // Add a request interceptor to handle URL joining and auth tokens
 api.interceptors.request.use(
