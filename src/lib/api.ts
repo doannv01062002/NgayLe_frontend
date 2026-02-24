@@ -1,7 +1,21 @@
 import axios from "axios";
 
 const getBaseURL = () => {
-  const url = process.env.NEXT_PUBLIC_API_URL || "https://ngaylebackend-production.up.railway.app/api";
+  let url = process.env.NEXT_PUBLIC_API_URL || "https://ngaylebackend-production.up.railway.app/api";
+
+  // Trim whitespace
+  url = url.trim();
+
+  // Ensure protocol exists
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    url = `https://${url}`;
+  }
+
+  // Ensure /api exists (as all our backend controllers use this prefix)
+  if (!url.toLowerCase().includes("/api")) {
+    url = url.endsWith("/") ? `${url}api` : `${url}/api`;
+  }
+
   return url.endsWith("/") ? url : `${url}/`;
 };
 
