@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CustomerTable } from "@/features/admin/customers/CustomerTable";
+import { UserTable as CustomerTable } from "@/features/admin/users_feature/UserTable";
 
 export default function AdminCustomersPage() {
   return (
