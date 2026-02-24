@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-jakarta);
+  --font-mono: var(--font-geist-mono);
+
+  --color-primary: #d41111;
+  --color-primary-dark: #b00e0e;
+  --color-primary-hover: #b00e0e;
+  --color-background-light: #f8f6f6;
+  --color-background-dark: #221010;
+  --color-secondary-accent: #facc15;
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #2d1b1b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@keyframes floating {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+.animate-floating {
+  animation: floating 6s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(0.98); }
+}
+/* Custom Cursor Styles - Applied to all interactive elements to override default pointer */
+/* Custom Cursor Styles - Applied to all interactive elements to override default pointer */
+/* Custom Cursor Styles */
+body.cursor-lixi, body.cursor-lixi *, body.cursor-lixi a, body.cursor-lixi button, body.cursor-lixi [role="button"] {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><filter id="glow"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="%239f1239" flood-opacity="0.3"/></filter><g filter="url(%23glow)"><path d="M2,2 Q12,12 28,28" stroke="%235b21b6" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="8" cy="8" r="4" fill="%23f43f5e"/><circle cx="8" cy="8" r="1.5" fill="%23fecdd3"/><circle cx="16" cy="16" r="3" fill="%23fb7185"/><circle cx="16" cy="16" r="1" fill="%23ffe4e6"/><circle cx="24" cy="24" r="2" fill="%23f43f5e"/><path d="M8,8 Q12,4 14,2" stroke="%235b21b6" stroke-width="1" fill="none"/><circle cx="14" cy="2" r="1.5" fill="%23fecdd3"/></g></svg>') 0 0, auto !important;
+}
+
+body.cursor-lantern, body.cursor-lantern *, body.cursor-lantern a, body.cursor-lantern button, body.cursor-lantern [role="button"] {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><filter id="g"><feGaussianBlur in="SourceGraphic" stdDeviation="1"/></filter><path d="M6,10 Q6,4 16,4 Q26,4 26,10 L26,22 Q26,28 16,28 Q6,28 6,22 Z" fill="%23dc2626" stroke="%23fcd34d" stroke-width="1.5"/><line x1="16" y1="4" x2="16" y2="28" stroke="%23991b1b" stroke-width="1"/><rect x="14" y="2" width="4" height="2" fill="%23451a03"/><rect x="14" y="28" width="4" height="6" fill="%23b91c1c"/><circle cx="16" cy="16" r="6" fill="%23fbbf24" opacity="0.4" filter="url(%23g)"/></svg>') 16 16, auto !important;
+}
+
+body.cursor-lotus, body.cursor-lotus *, body.cursor-lotus a, body.cursor-lotus button, body.cursor-lotus [role="button"] {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><filter id="glow"><feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="%23ec4899" flood-opacity="0.5"/></filter><g filter="url(%23glow)"><path d="M16 2L19 10L24 14L18 18L16 28L14 18L8 14L13 10L16 2Z" fill="%23fbcfe8" stroke="%23db2777" stroke-width="1"/></g></svg>') 16 16, auto !important;
+}
+
+/* Updated "Premium" Christmas Tree Cursor */
+body.cursor-santa, body.cursor-santa *, body.cursor-santa a, body.cursor-santa button, body.cursor-santa [role="button"] {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="1" dy="2" stdDeviation="1" flood-opacity="0.3"/></filter></defs><g transform="rotate(-10 16 16)" filter="url(%23shadow)"><!-- Trunk --><rect x="14" y="26" width="4" height="4" fill="%2378350f"/><!-- Leaves Bottom --><path d="M6 26L16 14L26 26H6Z" fill="%2315803d" stroke="%2314532d" stroke-width="0.5"/><!-- Leaves Middle --><path d="M8 18L16 8L24 18H8Z" fill="%2316a34a" stroke="%2314532d" stroke-width="0.5"/><!-- Leaves Top --><path d="M10 10L16 2L22 10H10Z" fill="%2322c55e" stroke="%2314532d" stroke-width="0.5"/><!-- Star --><path d="M16 0L17 3H20L17.5 5L18.5 8L16 6.5L13.5 8L14.5 5L12 3H15L16 0Z" fill="%23facc15"/><circle cx="12" cy="24" r="1.5" fill="%23ef4444"/><circle cx="20" cy="24" r="1.5" fill="%23ef4444"/><circle cx="14" cy="16" r="1.5" fill="%23fbbf24"/><circle cx="18" cy="16" r="1.5" fill="%233b82f6"/></g></svg>') 0 0, auto !important;
+}
+
+@keyframes sway-slow {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(2deg); }
+}
+.animate-sway-slow {
+  animation: sway-slow 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
