@@ -21,7 +21,7 @@ export function VisitTracker() {
       trackedRef.current = true;
       setTimeout(() => {
         api
-          .post("/common/track-visit")
+          .post("common/track-visit")
           .then(() => {
             sessionStorage.setItem("visit_recorded", "true");
           })

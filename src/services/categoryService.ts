@@ -14,11 +14,11 @@ export interface Category {
 
 export const categoryService = {
   getAllCategories: async (): Promise<Category[]> => {
-    const response = await api.get<Category[]>("/categories");
+    const response = await api.get<Category[]>("categories");
     return response.data;
   },
   getCategoryBySlug: async (slug: string): Promise<Category> => {
-      const response = await api.get<Category>(`/categories/${slug}`);
-      return response.data;
+    const response = await api.get<Category>(`categories/${slug}`);
+    return response.data;
   }
 };

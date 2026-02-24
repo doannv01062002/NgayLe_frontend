@@ -32,7 +32,7 @@ export const authService = {
   },
 
   login: async (email: string, password: string): Promise<AuthResponse> => {
-    const response = await api.post<AuthResponse>("/auth/login", { email, password });
+    const response = await api.post<AuthResponse>("auth/login", { email, password });
     return response.data;
   },
 
@@ -42,7 +42,7 @@ export const authService = {
     password: string,
     phoneNumber?: string
   ): Promise<AuthResponse> => {
-    const response = await api.post<AuthResponse>("/auth/register", {
+    const response = await api.post<AuthResponse>("auth/register", {
       fullName,
       email,
       password,
@@ -53,12 +53,12 @@ export const authService = {
   },
 
   sendOtp: async (email: string): Promise<{ message: string }> => {
-    const response = await api.post<{ message: string }>("/auth/send-otp", { email });
+    const response = await api.post<{ message: string }>("auth/send-otp", { email });
     return response.data;
   },
 
   verifyOtp: async (email: string, otpCode: string): Promise<{ verified: boolean; message: string }> => {
-    const response = await api.post<{ verified: boolean; message: string }>("/auth/verify-otp", {
+    const response = await api.post<{ verified: boolean; message: string }>("auth/verify-otp", {
       email,
       otpCode,
     });
@@ -72,7 +72,7 @@ export const authService = {
     fullName: string,
     providerId: string
   ): Promise<AuthResponse> => {
-    const response = await api.post<AuthResponse>("/auth/social-login", {
+    const response = await api.post<AuthResponse>("auth/social-login", {
       provider,
       accessToken,
       email,
@@ -81,24 +81,24 @@ export const authService = {
     });
     return response.data;
   },
-  
+
   forgotPasswordSendOtp: async (email: string): Promise<{ message: string }> => {
-    const response = await api.post<{ message: string }>("/auth/forgot-password/send-otp", { email });
+    const response = await api.post<{ message: string }>("auth/forgot-password/send-otp", { email });
     return response.data;
   },
 
   resetPassword: async (email: string, otpCode: string, newPassword: string): Promise<{ message: string }> => {
-    const response = await api.post<{ message: string }>("/auth/forgot-password/reset", {
+    const response = await api.post<{ message: string }>("auth/forgot-password/reset", {
       email,
       otpCode,
       newPassword,
     });
     return response.data;
   },
-  
+
   logout: async () => {
     try {
-      await api.post("/auth/logout");
+      await api.post("auth/logout");
     } catch (e) {
       console.error("Logout error", e);
     }

@@ -1,20 +1,29 @@
 import axios from "axios";
 
+const getBaseURL = () => {
+  const url = process.env.NEXT_PUBLIC_API_URL || "https://ngaylebackend-production.up.railway.app/api";
+  return url.endsWith("/") ? url : `${url}/`;
+};
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://ngaylebackend-production.up.railway.app/api",
+  baseURL: getBaseURL(),
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true,
 });
 
-// Add a request interceptor to add the auth token to requests
+// Add a request interceptor to handle URL joining and auth tokens
 api.interceptors.request.use(
   (config) => {
+    // Strip leading slash from URL to ensure Axios joins it correctly with baseURL
+    if (config.url && config.url.startsWith("/")) {
+      config.url = config.url.substring(1);
+    }
+
     if (typeof window !== "undefined") {
       const token = localStorage.getItem("token");
       if (token) {
-        // console.log("Attaching token to request:", token.substring(0, 10) + "..."); 
         config.headers.Authorization = `Bearer ${token}`;
       } else {
         console.warn("No token found in localStorage");
