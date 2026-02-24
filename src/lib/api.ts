@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://ngaylebackend-production.up.railway.app/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -35,10 +35,10 @@ api.interceptors.response.use(
         localStorage.removeItem("token");
         // Dispatch auth-changed event to update UI immediately
         window.dispatchEvent(new Event("auth-changed"));
-        
+
         // Prevent redirect loop if already on login
         if (!window.location.pathname.includes("/login")) {
-             window.location.href = "/login"; 
+          window.location.href = "/login";
         }
       }
     }

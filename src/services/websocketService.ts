@@ -1,7 +1,7 @@
 import { Client, Message } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
-const SOCKET_URL = 'http://localhost:8080/ws';
+const SOCKET_URL = process.env.NEXT_PUBLIC_WS_URL || 'https://ngaylebackend-production.up.railway.app/ws';
 
 class WebSocketService {
     private client: Client;
@@ -43,7 +43,7 @@ class WebSocketService {
     subscribe(topic: string, callback: (message: Message) => void) {
         return this.client.subscribe(topic, callback);
     }
-    
+
     // Helper to run code when connected
     onConnect(callback: () => void) {
         if (this.connected) {
@@ -56,7 +56,7 @@ class WebSocketService {
         // Let's add it to listeners only if we rely on it for re-subscription.
         // For now, simpler:
         if (!this.connected) {
-             this.connectListeners.push(callback);
+            this.connectListeners.push(callback);
         }
     }
 
@@ -75,7 +75,7 @@ class WebSocketService {
             console.warn('Client is not connected');
         }
     }
-    
+
     getClient() {
         return this.client;
     }
