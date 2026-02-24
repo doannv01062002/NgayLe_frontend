@@ -6,7 +6,7 @@ import { formatCurrency } from "@/lib/utils";
 
 interface SimilarProductsProps {
   categorySlug?: string;
-  currentProductId: number;
+  currentProductId?: number;
 }
 
 export function SimilarProducts({
