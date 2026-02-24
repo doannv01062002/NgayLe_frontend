@@ -15,7 +15,7 @@ interface ECardEditorProps {
 }
 
 export function ECardEditor({ state, setState, onPreview }: ECardEditorProps) {
-  const { success, info } = useToast();
+  const { success, info, error } = useToast();
   const [activeTab, setActiveTab] = useState<
     "template" | "message" | "decoration"
   >("template");
